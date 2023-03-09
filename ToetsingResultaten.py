@@ -6,15 +6,15 @@ import openpyxl
 
 #In[]
 
-#PATHS - ONLY INPUT REQUIRE
+#PATHS - ONLY INPUT REQUIRED
 
 #General path for all Toetsingen
 Path= r"C:\Python\MR_APP\MR-App-Repo\Toetsingen"
 #Path for only T3: To identify the parameters 
 # That cause a bad soil quality
-Path_T3 = "C:\Python\MR_APP\MR-App-Repo\Toetsingen\Botova_1449959 + 1449958 + 1449957 + 1449956_T3.xlsx"
+Path_T3 = r"C:\Python\MR_APP\MR-App-Repo\Toetsingen\Botova_1449959 + 1449958 + 1449957 + 1449956_T3.xlsx"
 #Certificatie
-Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten\1449956.xlsx"
+Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten"
 
 # In[]:
 #WorkDataFrame
@@ -119,18 +119,27 @@ for x in range(len(parameter_rows)-1):
 
     Exceeded_Parameters.append(','.join(results))
     results = []
+
+# Add a new column for the results
+df["Parameters Overschreden bij T3"] = Exceeded_Parameters
 #In[]
-# Load the Excel file
+
 Monsters_Lab = []
 Monster_MHPoly = []
-workbook = openpyxl.load_workbook(Path_C)
-# Select the active worksheet
-worksheet = workbook.active
-for row in worksheet.iter_rows(max_row=10):
-    for cell in row:
-        if cell.value in Monsters:
-            next_cell = worksheet.cell(row=cell.row + 1, column=cell.column)
-            Monsters_Lab.append(cell.value)
-            Monster_MHPoly.append(next_cell.value)
+for filename in os.listdir(Path_C):
+    f = os.path.join(Path_C, filename)
+    # Load the Excel file
+    workbook = openpyxl.load_workbook(f)
+    # Select the active worksheet
+    worksheet = workbook.active
+    for row in worksheet.iter_rows(max_row=10):
+        for cell in row:
+            if cell.value in Monsters:
+                next_cell = worksheet.cell(row=cell.row + 1, column=cell.column)
+                Monsters_Lab.append(cell.value)
+                Monster_MHPoly.append(next_cell.value)
 
+
+df['Monster'].replace(to_replace=Monsters_Lab, value=Monster_MHPoly, inplace=True)
+df.sort_values('Monster',inplace=True)
 #In[]
