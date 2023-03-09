@@ -6,7 +6,15 @@ import openpyxl
 
 #In[]
 
+#PATHS - ONLY INPUT REQUIRE
+
+#General path for all Toetsingen
 Path= r"C:\Python\MR_APP\MR-App-Repo\Toetsingen"
+#Path for only T3: To identify the parameters 
+# That cause a bad soil quality
+Path_T3 = "C:\Python\MR_APP\MR-App-Repo\Toetsingen\Botova_1449959 + 1449958 + 1449957 + 1449956_T3.xlsx"
+#Certificatie
+Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten\1449956.xlsx"
 
 # In[]:
 #WorkDataFrame
@@ -53,15 +61,15 @@ for filename in os.listdir(Path):
 
 #### What parameters produce that the klasse is B or NoT. 
 
-Path_T3 = "C:\Python\MR_APP\MR-App-Repo\Toetsingen\Botova_1449959 + 1449958 + 1449957 + 1449956_T3.xlsx"
-
-# Load the workbook
+# Load the Toetsing T3
 workbook = openpyxl.load_workbook(Path_T3)
 
 # Select the first worksheet
 worksheet = workbook.worksheets[0]
 
-# Create a list to store the row positions containing "Parameters"
+# Create a list to store the row positions containing 
+# "Parameters" that are in high concentrations
+
 parameter_rows = []
 
 # Loop through all rows in the worksheet
@@ -76,42 +84,53 @@ for row_index, row in enumerate(worksheet.iter_rows(), start=1):
             # If it does, add the row position to the list
             parameter_rows.append(row_index)
 
-#In[]
+            # Check if the cell contains the word "Parameters"
+        if cell.value == "Legenda":
 
+            # If it does, add the row position to the list
+            parameter_rows.append(row_index)
+        
 end_rows=[]
+
+#This will allow me to restrict my area to a monster at
+#the time
 
 for x in range(0,len(parameter_rows)):
     end_rows.append(parameter_rows[x]- 2)
 
-#In[]
-
-#Load the workbook
-workbook = openpyxl.load_workbook(Path_T3)
-
-# Select the worksheet that you want to search
-worksheet = workbook.active
-
-# Create a list to store the results
 results = []
-Monster = []
-
-# Iterate over the rows in the specified range
-for row in worksheet.iter_rows(min_row=257, max_row=335):
-    # Check if the row contains the value 'B' in the first column
-    if row[-1].value == 'B':
-        # If it does, add the value from the first column to the results list
-        results.append(row[0].value)
-    if row[-1].value == 'NoT':
-        # If it does, add the value from the first column to the results list
-        results.append(row[0].value)
-    if row[-3].value == 'Monster':
-        # If it does, add the value from the first column to the results list
-        Monster.append(row[-2].value)
-
-#In[]:
-
+Monsters= []
 Exceeded_Parameters = []
 
-Exceeded_Parameters.append(','.join(results))
-#In[]
+for x in range(len(parameter_rows)-1):
 
+    # Iterate over the rows in the specified range
+    for row in worksheet.iter_rows(min_row=parameter_rows[x], max_row=end_rows[x+1]):
+        # Check if the row contains the value 'B' in the first column
+        if row[-1].value == 'B':
+            # If it does, add the value from the first column to the results list
+            results.append(row[0].value)
+        if row[-1].value == 'NoT':
+            # If it does, add the value from the first column to the results list
+            results.append(row[0].value)
+        if row[-3].value == 'Monster':
+            # If it does, add the value from the first column to the results list
+            Monsters.append(row[-2].value)
+
+    Exceeded_Parameters.append(','.join(results))
+    results = []
+#In[]
+# Load the Excel file
+Monsters_Lab = []
+Monster_MHPoly = []
+workbook = openpyxl.load_workbook(Path_C)
+# Select the active worksheet
+worksheet = workbook.active
+for row in worksheet.iter_rows(max_row=10):
+    for cell in row:
+        if cell.value in Monsters:
+            next_cell = worksheet.cell(row=cell.row + 1, column=cell.column)
+            Monsters_Lab.append(cell.value)
+            Monster_MHPoly.append(next_cell.value)
+
+#In[]
