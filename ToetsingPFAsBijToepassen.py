@@ -2,7 +2,6 @@
 
 import os
 import pandas as pd 
-import openpyxl
 
 # In[]: 
 
@@ -57,11 +56,8 @@ for y in range(df_Input.shape[0]):
 df = df.set_index(pd.Index(Mengmonsters,name="Mengmonster"))
 
 
-#In[]:
-
-df.replace(0,"✔")
-df.replace(1,"--")
-
 # In[]
 df.to_excel(r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\3.xlsx")
-#In[]
+
+
+#In[]:
