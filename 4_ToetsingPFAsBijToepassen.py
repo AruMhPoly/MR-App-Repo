@@ -8,12 +8,12 @@ import pandas as pd
 # Input Paths
 
 PFAS_Kader = r"C:\Python\MR_APP\MR-App-Repo\Kader\PFAS.xlsx"
+# This has to be change by a dataframe 
+df_Input = pd.read_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\3.xlsx")
 
 # In[]: 
 
 df_Kader =  pd.read_excel(PFAS_Kader)
-# This has to be change by a dataframe 
-df_Input = pd.read_excel(r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\2.xlsx")
 df_Input.set_index(df_Input.columns.to_list()[0])
 # In[]: 
 
@@ -57,7 +57,7 @@ df = df.set_index(pd.Index(Mengmonsters,name="Mengmonster"))
 
 
 # In[]
-df.to_excel(r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\3.xlsx")
+df.to_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\4.xlsx")
 
 
 #In[]:

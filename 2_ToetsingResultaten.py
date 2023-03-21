@@ -9,12 +9,12 @@ import openpyxl
 #PATHS - ONLY INPUT REQUIRED
 
 #General path for all Toetsingen
-Path= r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\3 Toetsingen\Excel"
+Path= r"C:\Python\MR_APP\MR-App-Repo\Toetsingen"
 #Path for only T3: To identify the parameters 
 # That cause a bad soil quality
-Path_T3 = r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\3 Toetsingen\Excel\Botova_1498347_T3.xlsx"
-#Certificatie
-Path_C = r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\2 Certificaten\Excel"
+Path_T3 = r"C:\Python\MR_APP\MR-App-Repo\Toetsingen\Botova_1449959 + 1449958 + 1449957 + 1449956_T3.xlsx"
+#Certificaten
+Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten"
 
 # In[]:
 #WorkDataFrame
@@ -144,5 +144,5 @@ df['Monster'].replace(to_replace=Monsters_Lab, value=Monster_MHPoly, inplace=Tru
 df.sort_values('Monster',inplace=True)
 #In[]
 
-df.to_excel(r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\1.xlsx")
+df.to_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\2.xlsx")
 # In[]

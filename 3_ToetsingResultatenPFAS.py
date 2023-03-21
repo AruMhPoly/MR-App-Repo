@@ -5,7 +5,7 @@ import pandas as pd
 import openpyxl
 
 #Certificatie
-Path_C = r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\2 Certificaten\Excel" 
+Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten" 
 
 #Extract the columns where the parameters concentrations 
 # Are located
@@ -21,7 +21,7 @@ Name_Par = []
 for filename in os.listdir(Path_C):
     f = os.path.join(Path_C, filename)
 
-        # Load the Excel file
+    # Load the Excel file
     workbook = openpyxl.load_workbook(f)
     # Select the active worksheet
     worksheet = workbook.active
@@ -225,5 +225,5 @@ df["Gecorrigeerd voor org.stof"] = Corr
 
 # In[]:
 
-df.to_excel(r"P:\2023\23002 Jachthaven Klimbos Dordrecht\V1\07 Laboratorium\2.xlsx")
+df.to_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\3.xlsx")
 # In[]: 
