@@ -5,7 +5,7 @@ import pandas as pd
 import openpyxl
 
 #Certificatie
-Path_C = r"C:\Python\MR_APP\MR-App-Repo\Certificaten" 
+Path_C = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\Xls" 
 
 #Extract the columns where the parameters concentrations 
 # Are located
@@ -181,17 +181,15 @@ df['Hoogste andere PFAS'] = Name_Par
 df ["Concentratie (µg/kg ds)"] = HAP
 
 
+
 #In[]: 
 
 df["Organische stof (%)"] = Org_Stof
-df.sort_values('Mengmonster',inplace=True)
+# df.sort_values('Mengmonster',inplace=True)
 
 #In[]
 
 Corr = []
-# Check which rows have a value greater than 10 in column E
-mask = df['Organische stof (%)'] > 10
-
 #We can re use, it is no longer needed! 
 Columns = ['Som PFOS (µg/kg ds)',
  'SOM PFOA (µg/kg ds)',
@@ -199,8 +197,15 @@ Columns = ['Som PFOS (µg/kg ds)',
  'MeFOSAA (µg/kg ds)',
  'Concentratie (µg/kg ds)']
 
-# check if values in column exceed 10
-mask = df['Organische stof (%)'] > 10
+#In[]: 
+numeric_col = pd.to_numeric(df['Organische stof (%)'], errors='coerce')
+
+#In[]: 
+
+# apply mask only to numeric values
+mask = pd.notnull(numeric_col) & (numeric_col > 10)
+
+#In[]: 
 
 if mask.any():
     
@@ -216,7 +221,7 @@ else:
 #In[]
 
 for index, row in df.iterrows():
-    if row["Organische stof (%)"] > 10:
+    if row["Organische stof (%)"] and pd.notnull(row["Organische stof (%)"])> 10:
         Corr.append("Ja")
     else:
         Corr.append("Nee")
@@ -225,5 +230,5 @@ df["Gecorrigeerd voor org.stof"] = Corr
 
 # In[]:
 
-df.to_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\3.xlsx")
+df.to_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\3.xlsx")
 # In[]: 
