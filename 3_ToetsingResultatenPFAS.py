@@ -5,8 +5,8 @@ import pandas as pd
 import openpyxl
 
 #Certificatie
-Path_C = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\Xls" 
-
+Path_C = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\Excel" 
+Path_Save = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\3.xlsx"
 #Extract the columns where the parameters concentrations 
 # Are located
 Monsters_MhPoly = []
@@ -229,6 +229,5 @@ for index, row in df.iterrows():
 df["Gecorrigeerd voor org.stof"] = Corr
 
 # In[]:
-
-df.to_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\3.xlsx")
+df.to_excel(Path_Save)
 # In[]: 
