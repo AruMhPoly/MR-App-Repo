@@ -16,9 +16,13 @@ def get_unique(x):
 
 #Input
 #Path certificaten
-Path_Certif = r"C:\Python\MR_APP\MR-App-Repo\Certificaten_PDF"
-Mons = r"C:\Python\MR_APP\MR-App-Repo\Output\2.xlsx"
-Mons_PFAS = r"C:\Python\MR_APP\MR-App-Repo\Output\3.xlsx"
+#PDF
+Path_Certif = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA02\PDF'
+#Monsters
+Mons = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL\Output_BoToVa.xlsx'
+Mons_PFAS = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL\Output_PFAS.xlsx"
+#Path Save
+Path_Save = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL'
 
 # Empty lists to store results
 
@@ -53,6 +57,8 @@ for filename in os.listdir(Path_Certif):
     Monster_Names = pd.read_excel(Mons)["Monster"].to_list()
     Monster_PFAS = pd.read_excel(Mons_PFAS)["Mengmonster"].to_list()
     Monster_Names.extend(Monster_PFAS)
+    Monster_Names = list(set(Monster_Names))
+    Monster_Names = [str(num) for num in Monster_Names]
 
     # Open the PDF file
     pdf_file = fitz.open(f)
@@ -106,6 +112,6 @@ for filename in os.listdir(Path_Certif):
 
 # In[]:
 
-result.to_excel(r"C:\Python\MR_APP\MR-App-Repo\Output\6.xlsx")
+df_Out.to_excel(os.path.join(Path_Save,'VerhoogdeRapportageGrenzen.xlsx'))
 
 #In[]:
