@@ -4,11 +4,17 @@ import os
 import pandas as pd 
 import openpyxl
 
-#Certificatie
-Path_C = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\Excel" 
-Path_Save = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\3.xlsx"
-#Extract the columns where the parameters concentrations 
-# Are located
+
+#PATHS - ONLY INPUT REQUIRED
+
+#General path for all Toetsingen
+Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\Excel'
+#Path for only T3: To identify the parameters 
+# That cause a bad soil quality
+Path_T3 = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Botova_1508350_T3.xlsx"
+#Certificaten
+Path_Certificaten = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA04\EXCEL'
+
 Monsters_MhPoly = []
 Org_Stof =[]
 PFOS = []
@@ -18,8 +24,8 @@ MeFOSAA = []
 HAP = []
 Name_Par = []
 
-for filename in os.listdir(Path_C):
-    f = os.path.join(Path_C, filename)
+for filename in os.listdir(Path_Certificaten):
+    f = os.path.join(Path_Certificaten, filename)
 
     # Load the Excel file
     workbook = openpyxl.load_workbook(f)
@@ -169,9 +175,6 @@ for filename in os.listdir(Path_C):
 
     # print(f)
 
-
-# In[]: 
-
 df['Mengmonster'] = Monsters_MhPoly
 df['Som PFOS (µg/kg ds)'] = PFOS
 df['SOM PFOA (µg/kg ds)'] = PFOA
@@ -180,14 +183,8 @@ df['MeFOSAA (µg/kg ds)'] = MeFOSAA
 df['Hoogste andere PFAS'] = Name_Par
 df ["Concentratie (µg/kg ds)"] = HAP
 
-
-
-#In[]: 
-
 df["Organische stof (%)"] = Org_Stof
 # df.sort_values('Mengmonster',inplace=True)
-
-#In[]
 
 Corr = []
 #We can re use, it is no longer needed! 
@@ -196,16 +193,11 @@ Columns = ['Som PFOS (µg/kg ds)',
  'EtFOSAA (µg/kg ds)',
  'MeFOSAA (µg/kg ds)',
  'Concentratie (µg/kg ds)']
-
-#In[]: 
 numeric_col = pd.to_numeric(df['Organische stof (%)'], errors='coerce')
-
-#In[]: 
 
 # apply mask only to numeric values
 mask = pd.notnull(numeric_col) & (numeric_col > 10)
 
-#In[]: 
 
 if mask.any():
     
@@ -217,9 +209,6 @@ if mask.any():
 
 else: 
     pass
-
-#In[]
-
 for index, row in df.iterrows():
     if row["Organische stof (%)"] and pd.notnull(row["Organische stof (%)"])> 10:
         Corr.append("Ja")
@@ -227,7 +216,5 @@ for index, row in df.iterrows():
         Corr.append("Nee")
 
 df["Gecorrigeerd voor org.stof"] = Corr
-
-# In[]:
-df.to_excel(Path_Save)
+df.to_excel(os.path.join(Path_Toetsingen,'Output_PFAS.xlsx'))
 # In[]: 

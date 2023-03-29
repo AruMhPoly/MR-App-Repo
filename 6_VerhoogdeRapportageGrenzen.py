@@ -17,12 +17,13 @@ def get_unique(x):
 #Input
 #Path certificaten
 #PDF
-Path_Certif = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA02\PDF'
+Path_Certif = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA04\PDF"
 #Monsters
-Mons = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL\Output_BoToVa.xlsx'
-Mons_PFAS = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL\Output_PFAS.xlsx"
-#Path Save
-Path_Save = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA02\EXCEL'
+Mons = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_Botova.xlsx"
+Mons_PFAS = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_PFAS.xlsx"
+#Save Path
+Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL"
+
 
 # Empty lists to store results
 
@@ -112,6 +113,6 @@ for filename in os.listdir(Path_Certif):
 
 # In[]:
 
-df_Out.to_excel(os.path.join(Path_Save,'VerhoogdeRapportageGrenzen.xlsx'))
+df_Out.to_excel(os.path.join(Path_Toetsingen,'VerhoogdeRapportageGrenzen.xlsx'))
 
 #In[]:
