@@ -17,12 +17,12 @@ def get_unique(x):
 #Input
 #Path certificaten
 #PDF
-Path_Certif = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA04\PDF"
+Path_Certif = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA01\PDF'
 #Monsters
-Mons = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_Botova.xlsx"
-Mons_PFAS = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_PFAS.xlsx"
+Mons = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_Botova.xlsx"
+Mons_PFAS = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_PFAS.xlsx"
 #Save Path
-Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL"
+Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL'
 
 
 # Empty lists to store results

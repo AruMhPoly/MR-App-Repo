@@ -8,12 +8,12 @@ import openpyxl
 #PATHS - ONLY INPUT REQUIRED
 
 #General path for all Toetsingen
-Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\Excel'
+Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL'
 #Path for only T3: To identify the parameters 
 # That cause a bad soil quality
-Path_T3 = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Botova_1508350_T3.xlsx"
+Path_T3 = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Botova_1512122_T3.xlsx"
 #Certificaten
-Path_Certificaten = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA04\EXCEL'
+Path_Certificaten = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA01\EXCEL'
 
 Monsters_MhPoly = []
 Org_Stof =[]

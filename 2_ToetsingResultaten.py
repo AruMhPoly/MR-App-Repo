@@ -9,13 +9,12 @@ import openpyxl
 #PATHS - ONLY INPUT REQUIRED
 
 #General path for all Toetsingen
-Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\Excel'
+Path_Toetsingen= r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL'
 #Path for only T3: To identify the parameters 
 # That cause a bad soil quality
-Path_T3 = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Botova_1508350_T3.xlsx"
+Path_T3 = r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Botova_1512122_T3.xlsx"
 #Certificaten
-Path_Certificaten = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA04\EXCEL'
-
+Path_Certificaten = r'P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\2 Certificaten\RA01\EXCEL'
 #In[]: 
 
 #WorkDataFrame
@@ -37,7 +36,6 @@ for filename in os.listdir(Path_Toetsingen):
         for cell in row:
             if cell.value == "Monster":
                 next_cell = worksheet.cell(row=cell.row + 1, column=cell.column)
-                print(next_cell)
                 Monsters.append(next_cell.value)
             if cell.value == "Toetsoordeel":
                 next_cell = worksheet.cell(row=cell.row, column=cell.column + 1)
@@ -58,7 +56,7 @@ for filename in os.listdir(Path_Toetsingen):
     Classification = []
     Toetsingen = []
 
-    #### What parameters produce that the klasse is B or NoT. 
+#### What parameters produce that the klasse is B or NoT. 
 
 # Load the Toetsing T3
 workbook = openpyxl.load_workbook(Path_T3)
@@ -91,36 +89,52 @@ for row_index, row in enumerate(worksheet.iter_rows(), start=1):
         
 end_rows=[]
 
-#This will allow me to restrict my area to a monster at the time
+# #This will allow me to restrict my area to a monster at the time
 
 for x in range(0,len(parameter_rows)):
     end_rows.append(parameter_rows[x]- 2)
+
+#In[]:
 
 results = []
 Monsters= []
 Exceeded_Parameters = []
 
+# Iterate through the first rows 
+for row in range(parameter_rows[0], parameter_rows[1]):
+    # Iterate through each column in the row
+    for column in range(1, worksheet.max_column + 1):
+        # Get the value of the cell
+        cell_value = worksheet.cell(row=row, column=column).value
+        # Check if the value is "T.Oordel"
+        if cell_value == "T.Oordeel":
+            # Print the column number where "T.Oordel" appears
+            FirstColumn = column 
+            # Exit the loop, since we've found what we're looking for
+            break
+
+#In[]:
+
 for x in range(len(parameter_rows)-1):
 
     # Iterate over the rows in the specified range
     for row in worksheet.iter_rows(min_row=parameter_rows[x], max_row=end_rows[x+1]):
-        # Check if the row contains the value 'B' in the first column
-        if row[-1].value == 'B':
+        # Check if the row contains the value 'B' in the last column
+        # print(row[-1].value)
+        if row[FirstColumn-1].value == 'B':
             # If it does, add the value from the first column to the results list
             results.append(row[0].value)
-        if row[-1].value == 'NoT':
+        if row[FirstColumn-1].value == 'NoT':
             # If it does, add the value from the first column to the results list
             results.append(row[0].value)
-        if row[-3].value == 'Monster':
-            # If it does, add the value from the first column to the results list
-            next_cell = worksheet.cell(row=cell.row-3, column=cell.column+1)
-            Monsters.append(next_cell.value)
 
     Exceeded_Parameters.append(','.join(results))
     results = []
 
 # Add a new column for the results
 df["Parameters Overschreden bij T3"] = Exceeded_Parameters
+
+#In[]:
 
 df.to_excel(os.path.join(Path_Toetsingen,'Output_Botova.xlsx'))
 

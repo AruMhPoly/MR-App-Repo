@@ -9,11 +9,11 @@ import openpyxl
 #Input 
 
 #Toetsingen MijnLab
-df1 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_Botova.xlsx")
+df1 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_Botova.xlsx")
 #PFAS toepassing
-df2 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\PFAS_Toepassing.xlsx")
+df2 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_PFAS.xlsx")
 #Path Save
-Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL"
+Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL"
 #In[]
 df2.replace("✔",0,inplace=True)
 df2.replace("--",1,inplace=True)
@@ -91,6 +91,8 @@ for value in df1['T11']:
 
 df[Toep[6]] = my_list
 my_list = []
+
+#In[]: 
 
 #Where PFAS is an issue 
 my_list = []

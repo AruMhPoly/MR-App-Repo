@@ -9,9 +9,9 @@ import pandas as pd
 
 PFAS_Kader = r"C:\Python\MR_APP\MR-App-Repo\Kader\PFAS.xlsx"
 # This has to be change by a dataframe 
-df_Input = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL\Output_PFAS.xlsx")
+df_Input = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_PFAS.xlsx")
 #Path Save
-Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA04\EXCEL"
+Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL"
 
 df_Kader =  pd.read_excel(PFAS_Kader)
 df_Input.set_index(df_Input.columns.to_list()[0])
