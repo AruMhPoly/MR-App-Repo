@@ -9,18 +9,19 @@ import openpyxl
 #Input 
 
 #Toetsingen MijnLab
-df1 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_Botova.xlsx")
+df1 = pd.read_excel(r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Jachthaven BoZ\EXCEL\Output_Botova.xlsx")
 #PFAS toepassing
-df2 = pd.read_excel(r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL\Output_PFAS.xlsx")
+df2 = pd.read_excel(r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Jachthaven BoZ\EXCEL\Output_PFAS.xlsx")
 #Path Save
 Path_Toetsingen= r"P:\2022\22218 WNZ diverse vakken LN 2023\V1\07 Laboratorium\3 Toetsingen\RA01\EXCEL"
 #In[]
 df2.replace("✔",0,inplace=True)
 df2.replace("--",1,inplace=True)
 #Toetsingen
-T = ["Monster","T1","T3","T6","T7","T9","T11"]
+T = ["Monster","T1","T3","T5","T6","T7","T9","T11"]
 Toep = ["Monster","Baggerspecie kwaliteit - Landbodem",
         "Baggerspecie kwaliteit - Waterbodem",
+        'Beoordeling kwaliteit van bagger bij verspreiden op een aangrenzend perceel (landbodem)',
         "Verspreiden oppervlaktewaterlichaam in een zoet oppervlaktewaterlichaam",
         "Verspreiden oppervlaktewaterlichaam in een zout oppervlaktewaterlichaam",
         "(Grootschalige) toepassing landbodem","(Grootschalige) toepassing oppervlaktewaterlichaam"]
