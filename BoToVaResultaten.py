@@ -5,8 +5,6 @@ import pandas as pd
 import openpyxl
 import datetime
 
-#In[]: 
-
 class Botova:
     def __init__(self,Path_Toetsingen,ProjectNummer):
 
@@ -107,6 +105,7 @@ class Botova:
                 for x in range(0,len(parameter_rows)):
                     end_rows.append(parameter_rows[x]- 2)
                 results = []
+                Concentratie = []
                 # Iterate through the first rows 
                 for row in range(parameter_rows[0], parameter_rows[1]):
                     # Iterate through each column in the row
@@ -128,12 +127,17 @@ class Botova:
                         if row[FirstColumn-1].value == 'B':
                             # If it does, add the value from the first column to the results list
                             results.append(row[0].value)
+                            Concentratie.append(str(row[-2].value) + " mg/kg ds  ")
                         if row[FirstColumn-1].value == 'NoT':
                             # If it does, add the value from the first column to the results list
                             results.append(row[0].value)
+                            Concentratie.append(str(row[-2].value) + " mg/kg ds  ")
 
-                    Temporal_Exceeded_Parameters.append(','.join(results))
+                    TemporalList = list(zip(results, Concentratie)) 
+                    Temporal_Exceeded_Parameters.append(' - '.join([f"{x}:{y}" for x, y in TemporalList]))
+                    TemporalList = []
                     results = []
+                    Concentratie = []
                     Exceeded_Parameters.extend(Temporal_Exceeded_Parameters)
                     Temporal_Exceeded_Parameters = []
 
@@ -178,7 +182,7 @@ class Botova:
         return Path_Save 
 
 #In[]: 
-# Path= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
-# df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
+Path= r'C:\Python\MR_APP\Testen_DiverseVakken\TOETSINGEN'
+df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
 
 #In[]:

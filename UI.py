@@ -34,8 +34,8 @@ class Vista:
 
         # Logo
 
-        image1 = Image.open(f"C:\Python\Coordinaten_App\Logo\Tony.jpg")
-        image1 = image1.resize((150, 220), Image.ANTIALIAS)
+        image1 = Image.open(r"C:\Python\Coordinaten_App\Logo\Tony.jpg")
+        image1 = image1.resize((150, 220), Image.LANCZOS)
         test = ImageTk.PhotoImage(image1)
         label1 = tk.Label(image=test)
         label1.grid(row=0, column=0,columnspan = 3)

@@ -106,7 +106,6 @@ class VerhoogdeRapportageGrenzen:
             result["Oorzak"] = result["Oorzak"].apply(lambda x: self.get_unique(pd.Series(x)))
             result["Parameters"] = result["Parameters"].apply(lambda x: self.get_unique(pd.Series(x)))
         Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_VerhoogdeRapportageGrenzen.xlsx')
-        print(Path_Save)
         df_Out.to_excel(Path_Save)
 
 #In[]:
