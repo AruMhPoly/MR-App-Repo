@@ -17,7 +17,7 @@ class ExcelConverter ():
         self.Pathcertificaten = Pathcertificaten
 
     def Convert(self):
-
+        
         for filename in os.listdir(self.Pathcertificaten):
             
             f = os.path.join(self.Pathcertificaten, filename)

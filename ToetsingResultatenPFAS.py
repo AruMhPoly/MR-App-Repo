@@ -5,16 +5,17 @@ import pandas as pd
 import openpyxl
 
 
-Path = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\EXCEL'
-PS = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
+# Path = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\EXCEL'
+# PS = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
 
 #In[]
 
 class PFAS: 
 
-    def __init__(self,PathSave, Path_Certificaten):
+    def __init__(self,PathSave, Path_Certificaten,ProjectNummer):
         self.Path_Certificaten = Path_Certificaten
         self.PathSave = PathSave
+        self.ProjectNummer = ProjectNummer
 
     def ResultatenPFAS(self):
 
@@ -220,11 +221,12 @@ class PFAS:
 
         df["Gecorrigeerd voor org.stof"] = Corr
         df.set_index('Mengmonster',inplace=True)
-        df.to_excel(os.path.join(self.PathSave,'Output_PFAS.xlsx'))
-        return df
+        Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_Output_PFAS.xlsx')
+        df.to_excel(Path_Save)
+        return Path_Save
 
 # In[]: 
 
-df1 = PFAS(Path_Certificaten=Path,PathSave=PS).ResultatenPFAS()
+# df1 = PFAS(Path_Certificaten=Path,PathSave=PS).ResultatenPFAS()
 
 #In[]:

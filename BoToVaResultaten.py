@@ -5,16 +5,13 @@ import pandas as pd
 import openpyxl
 import datetime
 
-#In[]
-
-Path= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
-
 #In[]: 
 
 class Botova:
-    def __init__(self,Path_Toetsingen):
+    def __init__(self,Path_Toetsingen,ProjectNummer):
 
         self.Path_Toetsingen = Path_Toetsingen
+        self.ProjectNummer = ProjectNummer
 
     def ResultatenBotova(self):
         #WorkDataFrame
@@ -176,11 +173,12 @@ class Botova:
 
         df2 = df.pivot_table(index='Monster', columns='Toetsing', 
                             values=['Classification', 'Parameters Overschreden bij T3'], aggfunc=lambda x: ', '.join(x))
-        df2.to_excel(self.Path_Toetsingen + "//Output_Botova.xlsx")
-        return df2
+        Path_Save = os.path.join(self.Path_Toetsingen,self.ProjectNummer + '_Output_BoToVa.xlsx')
+        df2.to_excel(Path_Save)
+        return Path_Save 
 
 #In[]: 
-
-df = Botova(Path_Toetsingen=Path).ResultatenBotova()
+# Path= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
+# df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
 
 #In[]:

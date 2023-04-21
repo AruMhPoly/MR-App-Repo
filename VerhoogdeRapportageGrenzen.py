@@ -6,18 +6,13 @@ import os
 
 #In[]: 
 
-PC = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\PDF'
-MB = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\Output_Botova.xlsx"
-MP = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\Output_PFAS.xlsx"
-PS= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
-
-
 class VerhoogdeRapportageGrenzen: 
-    def __init__(self,PathCertif,MonstersBoToVa,MonsPFAS,PathSave):
-        self.PathCertif = PathCertif
+    def __init__(self,PathCertifPdf,MonstersBoToVa,MonsPFAS,PathSave,ProjectNummer):
+        self.PathCertifPdf = PathCertifPdf
         self.MonstersBoToVa = MonstersBoToVa
         self.MonsPFAS = MonsPFAS
         self.PathSave = PathSave
+        self.ProjectNummer = ProjectNummer
 
     # Define function to split and return unique values
     def get_unique(self,x):
@@ -33,9 +28,9 @@ class VerhoogdeRapportageGrenzen:
         S = []
         # Bericht
         B = []
-        for filename in os.listdir(self.PathCertif):
+        for filename in os.listdir(self.PathCertifPdf):
 
-            f = os.path.join(self.PathCertif, filename)
+            f = os.path.join(self.PathCertifPdf, filename)
 
             Pages=[]
             # Open the PDF file in binary mode
@@ -54,7 +49,8 @@ class VerhoogdeRapportageGrenzen:
                         Pages.append(page_num)
                         break
             #Name of monsters
-            Monster_Names = pd.read_excel(self.MonstersBoToVa)["Monster"].to_list()
+            UselessDf = pd.read_excel(self.MonstersBoToVa)
+            Monster_Names = list(UselessDf[UselessDf.columns[0]][2:])
             Monster_PFAS = pd.read_excel(self.MonsPFAS)["Mengmonster"].to_list()
             Monster_Names.extend(Monster_PFAS)
             Monster_Names = list(set(Monster_Names))
@@ -109,11 +105,18 @@ class VerhoogdeRapportageGrenzen:
             # Apply function to "Oorzak" column
             result["Oorzak"] = result["Oorzak"].apply(lambda x: self.get_unique(pd.Series(x)))
             result["Parameters"] = result["Parameters"].apply(lambda x: self.get_unique(pd.Series(x)))
-
-            df_Out.to_excel(os.path.join(self.PathSave,'VerhoogdeRapportageGrenzen.xlsx'))
+        Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_VerhoogdeRapportageGrenzen.xlsx')
+        print(Path_Save)
+        df_Out.to_excel(Path_Save)
 
 #In[]:
 
-Test = VerhoogdeRapportageGrenzen(PathCertif=PC,MonstersBoToVa=MB,MonsPFAS=MP,PathSave=PS).Grenzen()
+
+# PC = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\PDF'
+# MB = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\22196V1_Output_BoToVa.xlsx"
+# MP = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\22196V1_Output_PFAS.xlsx"
+# PS= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
+
+# Test = VerhoogdeRapportageGrenzen(PathCertifPdf= PC, MonstersBoToVa= MB, MonsPFAS= MP, PathSave= PS, ProjectNummer= "22218V1").Grenzen()
 
 #In[]:
