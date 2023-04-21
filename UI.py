@@ -3,12 +3,14 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 from tkinter import filedialog
 from BoToVaResultaten import Botova
 from ToetsingResultatenPFAS import PFAS
 from ToetsingPFAsBijToepassen import PFASToepassing
 from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
+from Conserveringsopmerkingen import Conserveringsopmerkingen
 
 window = tk.Tk()
 
@@ -26,16 +28,17 @@ class Vista:
         
         # Welcome Frame
 
-        welcome_frame = tk.LabelFrame(window, text="Milieu en Ruimte App", relief=tk.RIDGE, padx=5, pady=5)
+        welcome_frame = tk.LabelFrame(window, text="Mileu & Ruimte App", relief=tk.RIDGE, padx=5, pady=5)
         welcome_frame.grid(row=1, column=0,pady=7,columnspan = 3)
         welcome_frame.grid(sticky=tk.E + tk.W + tk.N + tk.S)
 
         # Logo
 
-        image1 = Image.open(f"C:\Python\Coordinaten_App\Logo\Logo.jpeg")
+        image1 = Image.open(f"C:\Python\Coordinaten_App\Logo\Tony.jpg")
+        image1 = image1.resize((150, 220), Image.ANTIALIAS)
         test = ImageTk.PhotoImage(image1)
         label1 = tk.Label(image=test)
-        label1.grid(row=1, column=0,columnspan = 1)
+        label1.grid(row=0, column=0,columnspan = 3)
         label1.image = test
 
         # Welcome Text
@@ -96,9 +99,13 @@ class Vista:
         self.PathCertificatePdfEntry.bind("<Button-1>", lambda event: self.SelectFolderPathCertificatenPdf())
         
         # Button 
-        Tabels_Button = tk.Button(PathFrame,text = "Tempo!"
+        Tabels_Button = tk.Button(PathFrame,text = "Tabelen crëeren"
                                         ,command = self.Tabels)
         Tabels_Button.grid(row=4,column=2, padx=10,pady=10)
+
+        ##PATH CERTIFICATEN (EXCEL)
+        Label(PathFrame,
+              text="Dat was het!").grid(row=4, column=1, pady=5, sticky="w")
 
 
         # Texto de Créditos
@@ -136,8 +143,20 @@ class Vista:
         PFASToepassing(PFASPath=Path_PFAS,PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Toepassing()
         VerhoogdeRapportageGrenzen(PathCertifPdf=self.PathCertificatePdfEntry.get(),MonstersBoToVa=Path_BoToVa,MonsPFAS=Path_PFAS,
                                    PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
+        self.MessageBoxOverschriding()
         window.destroy()
         
+    def MessageBoxOverschriding(self):
+        List =Conserveringsopmerkingen(self.PathCertificatePdfEntry.get()).Overschrijding()
+        if len(List)>0:
+            message = "Let op! Er zijn monsters waar de conververingstermijnen overschreden zijn in de certificaten: {}".format(", ".join(List))
+            # Display the messagebox
+            messagebox.showwarning("Warning", message)
+
+        else: 
+            #Display a message if the list is empty
+            messagebox.showinfo("Overschrijding conserveringstermijnen","In geen monster zijn de conververingstermijnen overschreden!")
+            
         
 # Create the entire GUI program
 Vista(window)
