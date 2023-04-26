@@ -7,7 +7,7 @@ import glob
 
 #In[]: 
 
-Path = r'P:\2023\23041 Perenlaantje Volgerlanden\B1\07 Laboratorium\3 Toetsingen\Excel'
+Path = r"C:\Python\MR_APP\Testen_DiverseVakken\CERTIFICATEN\EXCEL"
 
 #In[]:
 
@@ -21,14 +21,13 @@ class ExcelConverter ():
         for filename in os.listdir(self.Pathcertificaten):
             
             f = os.path.join(self.Pathcertificaten, filename)
-
-            excel = win32.gencache.EnsureDispatch('Excel.Application')
-            excel.DisplayAlerts = False
-            print(f)
-            workbook = excel.Workbooks.Open(f)
-            workbook.SaveAs(os.path.join(self.Pathcertificaten,filename + "x"), FileFormat=51)  # 51 is the XLSX file format
-            workbook.Close()
-            excel.Quit()
+            if filename.endswith('.xls'):
+                excel = win32.gencache.EnsureDispatch('Excel.Application')
+                excel.DisplayAlerts = False
+                workbook = excel.Workbooks.Open(f)
+                workbook.SaveAs(os.path.join(self.Pathcertificaten,filename + "x"), FileFormat=51)  # 51 is the XLSX file format
+                workbook.Close()
+                excel.Quit()
 
         # Use glob to find all files with .xls extension in the folder
         files_to_delete = glob.glob(os.path.join(self.Pathcertificaten, "*.xls"))
@@ -38,3 +37,7 @@ class ExcelConverter ():
             os.remove(file_path)
 
 #In[]: 
+
+ExcelConverter(Path).Convert()
+
+#In[]:

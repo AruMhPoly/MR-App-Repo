@@ -134,7 +134,7 @@ class Botova:
                             Concentratie.append(str(row[-2].value) + " mg/kg ds  ")
 
                     TemporalList = list(zip(results, Concentratie)) 
-                    Temporal_Exceeded_Parameters.append(' - '.join([f"{x}:{y}" for x, y in TemporalList]))
+                    Temporal_Exceeded_Parameters.append(' - '.join([f"{x}: {y}" for x, y in TemporalList]))
                     TemporalList = []
                     results = []
                     Concentratie = []
@@ -182,7 +182,8 @@ class Botova:
         return Path_Save 
 
 #In[]: 
-Path= r'C:\Python\MR_APP\Testen_DiverseVakken\TOETSINGEN'
-df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
+# Path= r'C:\Python\MR_APP\Testen_DiverseVakken\TOETSINGEN'
+# df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
 
 #In[]:
+

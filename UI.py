@@ -11,6 +11,7 @@ from ToetsingResultatenPFAS import PFAS
 from ToetsingPFAsBijToepassen import PFASToepassing
 from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
 from Conserveringsopmerkingen import Conserveringsopmerkingen
+from XlsToXlsx import ExcelConverter
 
 window = tk.Tk()
 
@@ -34,7 +35,7 @@ class Vista:
 
         # Logo
 
-        image1 = Image.open(r"C:\Python\Coordinaten_App\Logo\Tony.jpg")
+        image1 = Image.open(r"C:\Python\Coordinaten_App\Logo\Logo.jpeg")
         image1 = image1.resize((150, 220), Image.LANCZOS)
         test = ImageTk.PhotoImage(image1)
         label1 = tk.Label(image=test)
@@ -135,6 +136,9 @@ class Vista:
             self.PathCertificatePdfEntry.insert(0, folder_path)
 
     def Tabels(self):
+        Converter = ExcelConverter(self.PathCertificateEntry.get())
+        print(self.PathCertificateEntry.get())
+        Converter.Convert()
         Path_BoToVa = Botova(Path_Toetsingen=self.PathToetsingenEntry.get(),
                ProjectNummer=self.Project_Number.get()
                ).ResultatenBotova()
