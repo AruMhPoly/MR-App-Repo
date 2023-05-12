@@ -1,5 +1,4 @@
 import fitz
-import tabula
 import pandas as pd 
 import os
 

@@ -137,7 +137,6 @@ class Vista:
 
     def Tabels(self):
         Converter = ExcelConverter(self.PathCertificateEntry.get())
-        print(self.PathCertificateEntry.get())
         Converter.Convert()
         Path_BoToVa = Botova(Path_Toetsingen=self.PathToetsingenEntry.get(),
                ProjectNummer=self.Project_Number.get()
