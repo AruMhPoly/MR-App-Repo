@@ -136,8 +136,10 @@ class Vista:
             self.PathCertificatePdfEntry.insert(0, folder_path)
 
     def Tabels(self):
-        Converter = ExcelConverter(self.PathCertificateEntry.get())
-        Converter.Convert()
+        # It does not always work :/
+        
+        # Converter = ExcelConverter(self.PathCertificateEntry.get())
+        # Converter.Convert()
         Path_BoToVa = Botova(Path_Toetsingen=self.PathToetsingenEntry.get(),
                ProjectNummer=self.Project_Number.get()
                ).ResultatenBotova()

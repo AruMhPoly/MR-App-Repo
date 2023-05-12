@@ -4,8 +4,7 @@ import win32com.client as win32
 import os
 import glob
 
-
-#In[]: 
+#In[]:
 
 Path = r"C:\Python\MR_APP\Testen_DiverseVakken\CERTIFICATEN\EXCEL"
 
