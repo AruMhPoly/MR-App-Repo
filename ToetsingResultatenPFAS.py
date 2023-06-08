@@ -5,8 +5,8 @@ import pandas as pd
 import openpyxl
 
 
-# Path = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\EXCEL'
-# PS = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
+# Path = r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\2 Certificaten\EXCEL'
+# PS = r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\3 Toetsingen\EXCEL'
 
 #In[]
 
@@ -227,6 +227,6 @@ class PFAS:
 
 # In[]: 
 
-# df1 = PFAS(Path_Certificaten=Path,PathSave=PS).ResultatenPFAS()
+# df1 = PFAS(Path_Certificaten=Path,PathSave=PS,ProjectNummer="23_").ResultatenPFAS()
 
 #In[]:

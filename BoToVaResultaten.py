@@ -127,7 +127,7 @@ class Botova:
                         if row[FirstColumn-1].value == 'B':
                             # If it does, add the value from the first column to the results list
                             results.append(row[0].value)
-                            Concentratie.append(str(row[-2].value) + " mg/kg ds  ")
+                            Concentratie.append(str(row[-3].value) + " mg/kg ds  ")
                         if row[FirstColumn-1].value == 'NoT':
                             # If it does, add the value from the first column to the results list
                             results.append(row[0].value)
@@ -182,7 +182,7 @@ class Botova:
         return Path_Save 
 
 #In[]: 
-# Path= r'C:\Python\MR_APP\Testen_DiverseVakken\TOETSINGEN'
+# Path= r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\2 Certificaten\EXCEL'
 # df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
 
 #In[]:
