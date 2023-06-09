@@ -4,9 +4,8 @@ import os
 import pandas as pd 
 import openpyxl
 
-
-# Path = r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\2 Certificaten\EXCEL'
-# PS = r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\3 Toetsingen\EXCEL'
+Path = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
+PS = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
 
 #In[]
 
@@ -19,8 +18,11 @@ class PFAS:
 
     def ResultatenPFAS(self):
 
-        Monsters_MhPoly = []
+        Monsters_PFAS = []
+        Monsters = []
         Org_Stof =[]
+        CommonPFAS = ["SOM PFOS","SOM PFOA","EtFOSAA","MeFOSAA"]
+        IgnorePar = ["C08: PFOSv","C08: PFOS","C08: PFOAv","C08: PFOA",]
         PFOS = []
         PFOA = []
         EtFOSAA = []
@@ -29,157 +31,127 @@ class PFAS:
         Name_Par = []
 
         for filename in os.listdir(self.Path_Certificaten):
-            f = os.path.join(self.Path_Certificaten, filename)
+            
+            f = os.path.join(Path, filename)
+
+            ROWS_PFAS = []
+            ROWS_OS = []
 
             # Load the Excel file
             workbook = openpyxl.load_workbook(f)
             # Select the active worksheet
             worksheet = workbook.active
 
-
-            #Restrict the area to only PFAS results
-
-            WorkArea_Rows = []
-
-            # Loop through all rows in the worksheet
-            for row_index, row in enumerate(worksheet.iter_rows(), start=1):
-
-                # Loop through all cells in the row
+            # Iterate through the rows starting from row 7
+            for row in worksheet.iter_rows(min_row=7):
+                # Check if "µg/kg ds" is present in any cell of the row
                 for cell in row:
-
-                    # Check if the cell contains the word "Parameters"
-                    if cell.value == "perfluorbutaanzuur (PFBA)":
-
-                        # If it does, add the row position to the list
-                        WorkArea_Rows.append(row_index)
-
-                    if cell.value == "som PFOS":
-
-                        # If it does, add the row position to the list
-                        WorkArea_Rows.append(row_index)
-                    
-            Columns = []
-            Columns_NormMons =[]
-            # Iterate over the rows in the specified range
-            for row in worksheet.iter_rows():
-                for cell in row:
-                    # Check if the cell value contains "µg/kg ds"
                     if cell.value == "µg/kg ds":
-                        # Get the column position of the cell
-                        Columns.append(cell.column-1)
+                        if row[1].value not in Monsters_PFAS:
+                            Monsters_PFAS.append(row[1].value)
+                            ROWS_PFAS.append(cell.row)
+                    elif cell.value == "mg/kg ds":
+                        if row[1].value not in Monsters:
+                            Monsters.append(row[1].value) 
+                            ROWS_OS.append(cell.row)
+            
+            #Organisch stof
+            OS_Col = None
+            for column in worksheet.iter_cols():
+                            for cell in column:
+                                if cell.value == "Org.Stof.cor":
+                                    OS_Col = cell.column
+                                    break
+                            if OS_Col is not None:
+                                break
 
-            for row in worksheet.iter_rows(max_row=WorkArea_Rows[0]):
-                for cell in row:
-                    # Check if the cell value contains "mg/kg ds"
-                    if cell.value == "mg/kg ds":
-                        # Get the column position of the cell
-                        Columns_NormMons.append(cell.column-1)
+            #Extract the values of the Organisch Stof 
 
-            # Convert the list to a set to remove duplicates
-            Columns_NormMons = set(Columns_NormMons)
-            # Convert the set back to a list
-            Columns_NormMons = list(Columns_NormMons)
-            Columns_NormMons.sort()
+            for y in ROWS_OS:
+                Org_Stof.append(worksheet.cell(row=y, column=OS_Col).value) 
 
-            # Convert the list to a set to remove duplicates
-            Columns = set(Columns)
-            # Convert the set back to a list
-            Columns = list(Columns)
-            Columns.sort()
 
-            # Extract the name of the monsters used by MHPoly
-            for row in worksheet.iter_rows():
-                for cell in row:
-                    if cell.value == "Projectomschrijving":
-                        for x in Columns:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            Monsters_MhPoly.append(next_cell.value)
-                    if cell.value == "Org.Stof.cor":
-                        for x in Columns_NormMons:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            Org_Stof.append(next_cell.value)
-            # print(Monsters_MhPoly)
-            #Now let's extract the values 
-            # Create the pandas
-            df = pd.DataFrame({})
+            #Get the most common PFAS parameters
 
-            for row in worksheet.iter_rows(min_row=WorkArea_Rows[0], max_row=WorkArea_Rows[1]):
-                for cell in row:
-                    #Check for the common parameters
-                    if cell.value == "SOM PFOS":
-                        for x in Columns:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            PFOS.append(next_cell.value)   
-                    if cell.value == "SOM PFOA":
-                        for x in Columns:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            PFOA.append(next_cell.value)   
-                    if cell.value == "EtFOSAA":
-                        for x in Columns:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            EtFOSAA.append(next_cell.value)   
-                    if cell.value == "MeFOSAA":
-                        for x in Columns:
-                            next_cell = worksheet.cell(row=cell.row, column=x)
-                            MeFOSAA.append(next_cell.value)   
+            for column in worksheet.iter_cols():
+                        for cell in column:
+                            if cell.value == CommonPFAS[0]:
+                                for y in ROWS_PFAS:
+                                    PFOS.append(worksheet.cell(row=y, column=cell.column).value)
 
-            #Hoogste Andere PFAS 
-            Com_Par = ["SOM PFOS","SOM PFOA","EtFOSAA","MeFOSAA","C08: PFOA","C08: PFOAv","C08: PFOS" 
-                    ,"C08: PFOSv"] 
+                            elif cell.value == CommonPFAS[1]:
+                                for y in ROWS_PFAS:
+                                    PFOA.append(worksheet.cell(row=y, column=cell.column).value)
 
-            RowsOtherPFAS = []
+                            elif cell.value == CommonPFAS[2]:
+                                for y in ROWS_PFAS:
+                                    EtFOSAA.append(worksheet.cell(row=y, column=cell.column).value)
 
-            for row in worksheet.iter_rows(min_row=WorkArea_Rows[0], max_row=WorkArea_Rows[1]
-                                        , max_col=1):
-                for cell in row:
-                    #Check for the common parameters
-                    if cell.value not in Com_Par:
-                        RowsOtherPFAS.append(cell.row)
+                            elif cell.value == CommonPFAS[3]:
+                                for y in ROWS_PFAS:
+                                    MeFOSAA.append(worksheet.cell(row=y, column=cell.column).value)
 
-            # Now let's extract the highest PFAS value for the remaining rows
+            #Get the highest other PFAS
 
-            Useless_List = []
-            Useless_List_2 = []
 
-            for x in Columns:
-                i = 0
-                for row_num in RowsOtherPFAS:
-                    cell_value = worksheet.cell(row=row_num, column=x).value
-                    Useless_List.append(cell_value)
-                # Filter out invalid entries
-                filtered_list = [x for x in Useless_List if isinstance(x, float)]
+            for y in ROWS_PFAS:
                 
-                try:
-                
-                    HAP.append(max(filtered_list))
-                    Useless_List = []
-                    filtered_list = []
-                    for row_num in RowsOtherPFAS:
-                        cell_value = worksheet.cell(row=row_num, column=x).value
-                        if cell_value == HAP[-1]:
-                            i = i + 1
-                            cell_value = worksheet.cell(row=row_num, column=1).value
-                            Useless_List_2.append(cell_value)
+                    #List to add all PFAS values
+                    UL = [] 
+                    # List to add the name of the parameters
+                    UL2 = []
+                    # Columns with PFAS values. 
+                    UL3 = []
+                    for column in worksheet.iter_cols():
+                        cell = column[y - 1]  # Adjusted for 0-based indexing
+                        if cell.value == 'µg/kg ds':
+                            UL.append(worksheet.cell(row=y, column=cell.column-1).value)
+                            UL2.append(worksheet.cell(row=1, column=cell.column-1).value)
 
-                    if len(Useless_List_2)>1:
-                        result = ', '.join(Useless_List_2)
-                        Name_Par.append(result)
-                    else:
-                        Name_Par.append(Useless_List_2[0]) 
-                    Useless_List_2 = []
-                    i = 0
+                    #Convert the list in float to extract the values
+
+                    for item in UL:
+                        try:
+                            UL3.append(float(item))
+                        except:
+                            UL3.append((item))
+
+                    #Get Maximum value 
+
+                    max_value = float('-inf')
+                    max_indices = []
+
+                    for i, value in enumerate(UL3):
+                        if isinstance(value, str):  # Ignore strings
+                            continue
+                        if value > max_value and UL2[i] not in CommonPFAS and UL2[i] not in IgnorePar:
+                            max_value = value
+                            max_indices = [i]
+                        elif value == max_value:
+                            max_indices.append(i)
+
+                    # Concatenate the parameters that belong to the highest PFAS
+
+                    n  = ""
+                    #This is for a conditional so I can now where a new big value was found
+                    z = 0
+                    for x in max_indices:
+                        if UL2[x] not in CommonPFAS:
+                            n = n + "-" + str(UL2[x])
+                            z = UL3[max_indices[0]]
+                        else:
+                            n = n + ""
                         
-                #Empty the lists 
-                except:
-                        Name_Par.append("--")
-                        HAP.append("--")
 
-                Useless_List = []
-                filtered_list = []
+                    Name_Par.append(n)
+                    HAP.append(z)
 
-            # print(f)
+        df = pd.DataFrame(columns=['Mengmonster','Som PFOS (µg/kg ds)',
+                                'SOM PFOA (µg/kg ds)','EtFOSAA (µg/kg ds)',
+                                'MeFOSAA (µg/kg ds)','Hoogste andere PFAS'
+                                ,"Concentratie (µg/kg ds)","Organische stof (%)","Gecorrigeerd?"])
 
-        df['Mengmonster'] = Monsters_MhPoly
+        df['Mengmonster'] = Monsters_PFAS
         df['Som PFOS (µg/kg ds)'] = PFOS
         df['SOM PFOA (µg/kg ds)'] = PFOA
         df['EtFOSAA (µg/kg ds)'] = EtFOSAA
@@ -188,45 +160,39 @@ class PFAS:
         df ["Concentratie (µg/kg ds)"] = HAP
 
         df["Organische stof (%)"] = Org_Stof
-        # df.sort_values('Mengmonster',inplace=True)
-
-        Corr = []
-        #We can re use, it is no longer needed! 
-        Columns = ['Som PFOS (µg/kg ds)',
-        'SOM PFOA (µg/kg ds)',
-        'EtFOSAA (µg/kg ds)',
-        'MeFOSAA (µg/kg ds)',
-        'Concentratie (µg/kg ds)']
-        numeric_col = pd.to_numeric(df['Organische stof (%)'], errors='coerce')
-
-        # apply mask only to numeric values
-        mask = pd.notnull(numeric_col) & (numeric_col > 10)
 
 
-        if mask.any():
-            
-            df.loc[mask, Columns] = df.loc[mask, Columns].apply(pd.to_numeric, errors='coerce') \
-                                    .div(df.loc[mask, 'Organische stof (%)'], axis=0) \
-                                    .fillna(0)
+        df[['Som PFOS (µg/kg ds)', 'SOM PFOA (µg/kg ds)',
+            'EtFOSAA (µg/kg ds)',
+            'MeFOSAA (µg/kg ds)',
+            "Concentratie (µg/kg ds)",
+            'Organische stof (%)']] = df[['Som PFOS (µg/kg ds)', 'SOM PFOA (µg/kg ds)',
+            'EtFOSAA (µg/kg ds)',
+            'MeFOSAA (µg/kg ds)',
+            "Concentratie (µg/kg ds)",
+            'Organische stof (%)']].apply(pd.to_numeric, errors='coerce').fillna(0)
 
-            df.loc[mask, Columns] = df[Columns].apply(lambda x: x * 10)
+        # Find rows where column D is greater than 10
+        condition = df['Organische stof (%)'] > 10
+        # Update values in columns A and B
 
-        else: 
+        try:
+            df.loc[condition, 'Som PFOS (µg/kg ds)',] = (df['Som PFOS (µg/kg ds)'] / df['Organische stof (%)']) * 10
+            df.loc[condition, 'SOM PFOA (µg/kg ds)',] = (df['SOM PFOA (µg/kg ds)'] / df['Organische stof (%)']) * 10
+            df.loc[condition, 'EtFOSAA (µg/kg ds)',] = (df['EtFOSAA (µg/kg ds)'] / df['Organische stof (%)']) * 10
+            df.loc[condition, 'MeFOSAA (µg/kg ds)',] = (df['MeFOSAA (µg/kg ds)'] / df['Organische stof (%)']) * 10
+            df.loc[condition, 'Concentratie (µg/kg ds)',] = (df['Concentratie (µg/kg ds)'] / df['Organische stof (%)']) * 10
+        except:
             pass
-        for index, row in df.iterrows():
-            if row["Organische stof (%)"] and pd.notnull(row["Organische stof (%)"])> 10:
-                Corr.append("Ja")
-            else:
-                Corr.append("Nee")
-
-        df["Gecorrigeerd voor org.stof"] = Corr
+        
+        df.replace({'Som PFOS (µg/kg ds)': 0.1, 'SOM PFOA (µg/kg ds)': 0.1}, 0, inplace=True)
+        df["Gecorrigeerd?"] = df['Organische stof (%)'].apply(lambda x: 'Ja' if x > 10 else 'Nee')
         df.set_index('Mengmonster',inplace=True)
+        df.replace(0,"--",inplace=True)
         Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_Output_PFAS.xlsx')
         df.to_excel(Path_Save)
-        return Path_Save
-
-# In[]: 
-
-# df1 = PFAS(Path_Certificaten=Path,PathSave=PS,ProjectNummer="23_").ResultatenPFAS()
-
 #In[]:
+
+Test = PFAS(PathSave=PS,Path_Certificaten=Path,ProjectNummer="P_")
+Test.ResultatenPFAS()
+#In[]
