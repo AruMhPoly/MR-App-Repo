@@ -20,7 +20,6 @@ class VerhoogdeRapportageGrenzen:
         return ", ".join(sorted(values))
 
     def Grenzen(self):
-
         #Monster
         M = []
         # Stof
@@ -30,7 +29,6 @@ class VerhoogdeRapportageGrenzen:
         for filename in os.listdir(self.PathCertifPdf):
 
             f = os.path.join(self.PathCertifPdf, filename)
-
             Pages=[]
             # Open the PDF file in binary mode
             with open(f, 'rb') as pdf_file:
@@ -104,17 +102,17 @@ class VerhoogdeRapportageGrenzen:
             # Apply function to "Oorzak" column
             result["Oorzak"] = result["Oorzak"].apply(lambda x: self.get_unique(pd.Series(x)))
             result["Parameters"] = result["Parameters"].apply(lambda x: self.get_unique(pd.Series(x)))
-        Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_VerhoogdeRapportageGrenzen.xlsx')
-        df_Out.to_excel(Path_Save)
+            Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_VerhoogdeRapportageGrenzen.xlsx')
+            df_Out.to_excel(Path_Save)
 
 #In[]:
 
 
-# PC = r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\2 Certificaten\PDF'
-# MB = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\22196V1_Output_BoToVa.xlsx"
-# MP = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\22196V1_Output_PFAS.xlsx"
-# PS= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
+# PC = r"P:\2023\23116 Kade Zomerlust\V1\07 Laboratorium\2 Certificaten\PDF"
+# MB = r"P:\2023\23116 Kade Zomerlust\V1\07 Laboratorium\3 Toetsingen\EXCEL\ZomerlustKade_Output_BoToVa.xlsx"
+# MP = r"P:\2023\23116 Kade Zomerlust\V1\07 Laboratorium\3 Toetsingen\EXCEL\ZomerlustKade_Output_PFAS.xlsx"
+# PS= r'P:\2023\23116 Kade Zomerlust\V1\07 Laboratorium\3 Toetsingen\EXCEL'
 
-# Test = VerhoogdeRapportageGrenzen(PathCertifPdf= PC, MonstersBoToVa= MB, MonsPFAS= MP, PathSave= PS, ProjectNummer= "22218V1").Grenzen()
+# Test = VerhoogdeRapportageGrenzen(PathCertifPdf= PC, MonstersBoToVa= MB, MonsPFAS= MP, PathSave= PS, ProjectNummer= "ZomerlustKade").Grenzen()
 
 #In[]:

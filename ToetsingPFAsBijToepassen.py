@@ -34,9 +34,9 @@ class PFASToepassing():
             # Iterate over each row of df_Kader and compare values with the selected columns from df_Input
             for index, row in df_Kader.iterrows():
                 if (df_Input.loc[y, Cols] > row[Cols]).any():
-                    Res.append("--")
+                    Res.append("1")
                 else:
-                    Res.append("✔")
+                    Res.append("0")
 
             new_row = pd.DataFrame([Res], columns=Names_Columns)
             df = pd.concat([df, new_row], ignore_index=True)

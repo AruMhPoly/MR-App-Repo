@@ -34,8 +34,8 @@ class OMEGA_API:
         
         global f1 
         global f2
-        f1 = os.path.join(self.Path_certificaten_save,"EXCEL")
-        f2 = os.path.join(self.Path_certificaten_save,"PDF")
+        f1 = os.path.join(self.Path_certificaten_save,"CERTIFICATEN","EXCEL")
+        f2 = os.path.join(self.Path_certificaten_save,"CERTIFICATEN","PDF")
 
         if not os.path.exists(f1):
                 os.makedirs(f1)
@@ -129,7 +129,7 @@ class OMEGA_API:
 
 #In[]: 
 
-T1 = OMEGA_API(ProjectNummer="22196V1-Theodorushaven Bergen op Zoom",Path_certificaten_save=r"C:\Python\MR_APP\TESTEN_API")
+T1 = OMEGA_API(ProjectNummer="22196V1-Theodorushaven Bergen op Zoom",Path_certificaten_save=r"C:\Python\MR_APP\TESTEN_BOZ")
 xml = T1.DownloadCertificates()
 T1.convert_xml_to_excel()
 T1.Unzip()

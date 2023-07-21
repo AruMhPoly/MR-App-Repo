@@ -4,8 +4,8 @@ import os
 import pandas as pd 
 import openpyxl
 
-Path = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
-PS = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
+# Path = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
+# PS = r'C:\Python\MR_APP\TESTEN_API\EXCEL'
 
 #In[]
 
@@ -32,7 +32,7 @@ class PFAS:
 
         for filename in os.listdir(self.Path_Certificaten):
             
-            f = os.path.join(Path, filename)
+            f = os.path.join(self.Path_Certificaten, filename)
 
             ROWS_PFAS = []
             ROWS_OS = []
@@ -172,9 +172,15 @@ class PFAS:
             "Concentratie (µg/kg ds)",
             'Organische stof (%)']].apply(pd.to_numeric, errors='coerce').fillna(0)
 
+        #The sum can not be 0.1, then it means it is not repported above the threshold value
+
+        df.replace({'Som PFOS (µg/kg ds)': 0.1, 'SOM PFOA (µg/kg ds)': 0.1}, 0, inplace=True)
+
         # Find rows where column D is greater than 10
         condition = df['Organische stof (%)'] > 10
         # Update values in columns A and B
+
+
 
         try:
             df.loc[condition, 'Som PFOS (µg/kg ds)',] = (df['Som PFOS (µg/kg ds)'] / df['Organische stof (%)']) * 10
@@ -191,8 +197,9 @@ class PFAS:
         df.replace(0,"--",inplace=True)
         Path_Save = os.path.join(self.PathSave, self.ProjectNummer + '_Output_PFAS.xlsx')
         df.to_excel(Path_Save)
+        return Path_Save
 #In[]:
 
-Test = PFAS(PathSave=PS,Path_Certificaten=Path,ProjectNummer="P_")
-Test.ResultatenPFAS()
+# Test = PFAS(PathSave=PS,Path_Certificaten=Path,ProjectNummer="P_")
+# Test.ResultatenPFAS()
 #In[]
