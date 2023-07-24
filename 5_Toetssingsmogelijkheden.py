@@ -1,9 +1,11 @@
-#In[]
 
 import os
 import pandas as pd 
 import openpyxl
-#In[]:
+
+class Toepassingsmogelijkheden:
+        
+
 #Toetsingen
 T = ["T3","T5","T6","T7","T9","T11"]
 Toep = ["Baggerspecie kwaliteit - Waterbodem",
