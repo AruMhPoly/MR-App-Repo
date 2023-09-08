@@ -12,6 +12,7 @@ from ToetsingPFAsBijToepassen import PFASToepassing
 from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
 from Conserveringsopmerkingen import Conserveringsopmerkingen
 from XlsToXlsx import ExcelConverter
+from ToepassingsMogelijkheden import Toetssingsmogelijkheden
 
 window = tk.Tk()
 
@@ -145,9 +146,13 @@ class Vista:
                ).ResultatenBotova()
         Path_PFAS = PFAS(Path_Certificaten=self.PathCertificateEntry.get(),PathSave=self.PathToetsingenEntry.get(),
              ProjectNummer=self.Project_Number.get()).ResultatenPFAS()
-        PFASToepassing(PFASPath=Path_PFAS,PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Toepassing()
+        Path_PFAS_Toepassing = PFASToepassing(PFASPath=Path_PFAS,PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Toepassing()
         VerhoogdeRapportageGrenzen(PathCertifPdf=self.PathCertificatePdfEntry.get(),MonstersBoToVa=Path_BoToVa,MonsPFAS=Path_PFAS,
                                    PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
+        Toetssingsmogelijkheden(MonstersBoToVa=Path_BoToVa,
+                                MonsPFAS=Path_PFAS_Toepassing,
+                                PathSave=self.PathToetsingenEntry.get(),
+                                ProjectNummer=self.Project_Number.get()).Mogelijkheden()
         self.MessageBoxOverschriding()
         window.destroy()
         

@@ -129,7 +129,7 @@ class OMEGA_API:
 
 #In[]: 
 
-T1 = OMEGA_API(ProjectNummer="22196V1-Theodorushaven Bergen op Zoom",Path_certificaten_save=r"C:\Python\MR_APP\TESTEN_BOZ")
+T1 = OMEGA_API(ProjectNummer="23126V1-Moldiep Dordrecht",Path_certificaten_save=r"P:\2023\23126 Moldiep Dordrecht\V1\09 Laboratorium\02 Certificaten")
 xml = T1.DownloadCertificates()
 T1.convert_xml_to_excel()
 T1.Unzip()
