@@ -11,7 +11,6 @@ from ToetsingResultatenPFAS import PFAS
 from ToetsingPFAsBijToepassen import PFASToepassing
 from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
 from Conserveringsopmerkingen import Conserveringsopmerkingen
-from XlsToXlsx import ExcelConverter
 from ToepassingsMogelijkheden import Toetssingsmogelijkheden
 
 window = tk.Tk()

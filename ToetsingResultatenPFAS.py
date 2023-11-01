@@ -200,6 +200,8 @@ class PFAS:
         return Path_Save
 #In[]:
 
-# Test = PFAS(PathSave=PS,Path_Certificaten=Path,ProjectNummer="P_")
+# PS =r"P:\2023\23121 WNZ monitoring 2023\V1\09 Laboratorium\03 Toetsingen\EXCEL"
+# PC = r"P:\2023\23121 WNZ monitoring 2023\V1\09 Laboratorium\02 Certificaten\EXCEL"
+# Test = PFAS(PathSave=PS,Path_Certificaten=PC,ProjectNummer="23121V1")
 # Test.ResultatenPFAS()
 #In[]
