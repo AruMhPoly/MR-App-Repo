@@ -12,7 +12,7 @@ from ToetsingPFAsBijToepassen import PFASToepassing
 from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
 from Conserveringsopmerkingen import Conserveringsopmerkingen
 from ToepassingsMogelijkheden import Toetssingsmogelijkheden
-
+from SlufterToets import SlufterToets
 window = tk.Tk()
 
 # window.geometry("550x300+300+150")
@@ -136,10 +136,7 @@ class Vista:
             self.PathCertificatePdfEntry.insert(0, folder_path)
 
     def Tabels(self):
-        # It does not always work :/
-        
-        # Converter = ExcelConverter(self.PathCertificateEntry.get())
-        # Converter.Convert()
+
         Path_BoToVa = Botova(Path_Toetsingen=self.PathToetsingenEntry.get(),
                ProjectNummer=self.Project_Number.get()
                ).ResultatenBotova()
@@ -148,6 +145,13 @@ class Vista:
         Path_PFAS_Toepassing = PFASToepassing(PFASPath=Path_PFAS,PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Toepassing()
         VerhoogdeRapportageGrenzen(PathCertifPdf=self.PathCertificatePdfEntry.get(),MonstersBoToVa=Path_BoToVa,MonsPFAS=Path_PFAS,
                                    PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
+        
+        #Sluftertoets
+        SlufterToets(Path_Toetsingen=self.PathToetsingenEntry.get(),
+                     Projectnummer=self.Project_Number.get(),
+                     Path_PFAS=Path_PFAS).RunTest()
+
+        
         Toetssingsmogelijkheden(MonstersBoToVa=Path_BoToVa,
                                 MonsPFAS=Path_PFAS_Toepassing,
                                 PathSave=self.PathToetsingenEntry.get(),

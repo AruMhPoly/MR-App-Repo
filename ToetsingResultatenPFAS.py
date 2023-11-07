@@ -68,6 +68,7 @@ class PFAS:
             #Extract the values of the Organisch Stof 
 
             for y in ROWS_OS:
+                # print(worksheet.cell(row=y, column=OS_Col).value)
                 Org_Stof.append(worksheet.cell(row=y, column=OS_Col).value) 
 
 

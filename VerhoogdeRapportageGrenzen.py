@@ -29,7 +29,7 @@ class VerhoogdeRapportageGrenzen:
         for filename in os.listdir(self.PathCertifPdf):
 
             f = os.path.join(self.PathCertifPdf, filename)
-            print(f)
+            # print(f)
             Pages=[]
             # Open the PDF file in binary mode
             with open(f, 'rb') as pdf_file:
