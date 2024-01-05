@@ -147,9 +147,12 @@ class Vista:
                                    PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
         
         #Sluftertoets
-        SlufterToets(Path_Toetsingen=self.PathToetsingenEntry.get(),
-                     Projectnummer=self.Project_Number.get(),
-                     Path_PFAS=Path_PFAS).RunTest()
+        # self,Projectnummer,Path_Certificaten,Path_Botova,Path_PFAS
+        # SlufterToets(Projectnummer=self.Project_Number.get(),            
+        #             Path_Certificaten=self.PathCertificateEntry.get(),
+        #             Path_Botova = Path_BoToVa,    
+        #             Path_PFAS=Path_PFAS,
+        #             Path_Toetsingen=self.PathToetsingenEntry.get()).RunTest()
 
         
         Toetssingsmogelijkheden(MonstersBoToVa=Path_BoToVa,
@@ -163,7 +166,7 @@ class Vista:
         List =Conserveringsopmerkingen(self.PathCertificatePdfEntry.get()).Overschrijding()
         if len(List)>0:
             message = "Let op! Er zijn monsters waar de conververingstermijnen overschreden zijn in de certificaten: {}".format(", ".join(List))
-            # Display the messagebox
+            # Display the  messagebox
             messagebox.showwarning("Warning", message)
 
         else: 

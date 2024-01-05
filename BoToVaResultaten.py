@@ -182,7 +182,7 @@ class Botova:
         return Path_Save 
 
 #In[]: 
-# Path= r'P:\2023\23046 Kleine Geulhaven\V1\07 Laboratorium\2 Certificaten\EXCEL'
+# Path= r'P:\2023\23204 locaties langs de Maas WBO\V1\09 Laboratorium\03 Toetsingen\V5 - Keent Meander Zuid\EXCEL'
 # df = Botova(Path_Toetsingen=Path,ProjectNummer="22218V1").ResultatenBotova()
 
 #In[]:
