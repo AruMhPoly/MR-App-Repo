@@ -9,10 +9,10 @@ from tkinter import filedialog
 from BoToVaResultaten import Botova
 from ToetsingResultatenPFAS import PFAS
 from ToetsingPFAsBijToepassen import PFASToepassing
-from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
-from Conserveringsopmerkingen import Conserveringsopmerkingen
-from ToepassingsMogelijkheden import Toetssingsmogelijkheden
-
+# from VerhoogdeRapportageGrenzen import VerhoogdeRapportageGrenzen
+# from Conserveringsopmerkingen import Conserveringsopmerkingen
+# from ToepassingsMogelijkheden import Toetssingsmogelijkheden
+# from SlufterToets import SlufterToets
 window = tk.Tk()
 
 # window.geometry("550x300+300+150")
@@ -136,35 +136,42 @@ class Vista:
             self.PathCertificatePdfEntry.insert(0, folder_path)
 
     def Tabels(self):
-        # It does not always work :/
-        
-        # Converter = ExcelConverter(self.PathCertificateEntry.get())
-        # Converter.Convert()
+
         Path_BoToVa = Botova(Path_Toetsingen=self.PathToetsingenEntry.get(),
                ProjectNummer=self.Project_Number.get()
                ).ResultatenBotova()
         Path_PFAS = PFAS(Path_Certificaten=self.PathCertificateEntry.get(),PathSave=self.PathToetsingenEntry.get(),
              ProjectNummer=self.Project_Number.get()).ResultatenPFAS()
         Path_PFAS_Toepassing = PFASToepassing(PFASPath=Path_PFAS,PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Toepassing()
-        VerhoogdeRapportageGrenzen(PathCertifPdf=self.PathCertificatePdfEntry.get(),MonstersBoToVa=Path_BoToVa,MonsPFAS=Path_PFAS,
-                                   PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
-        Toetssingsmogelijkheden(MonstersBoToVa=Path_BoToVa,
-                                MonsPFAS=Path_PFAS_Toepassing,
-                                PathSave=self.PathToetsingenEntry.get(),
-                                ProjectNummer=self.Project_Number.get()).Mogelijkheden()
-        self.MessageBoxOverschriding()
+        # VerhoogdeRapportageGrenzen(PathCertifPdf=self.PathCertificatePdfEntry.get(),MonstersBoToVa=Path_BoToVa,MonsPFAS=Path_PFAS,
+        #                            PathSave=self.PathToetsingenEntry.get(),ProjectNummer=self.Project_Number.get()).Grenzen()
+        
+        #Sluftertoets
+        # self,Projectnummer,Path_Certificaten,Path_Botova,Path_PFAS
+        # SlufterToets(Projectnummer=self.Project_Number.get(),            
+        #             Path_Certificaten=self.PathCertificateEntry.get(),
+        #             Path_Botova = Path_BoToVa,    
+        #             Path_PFAS=Path_PFAS,
+        #             Path_Toetsingen=self.PathToetsingenEntry.get()).RunTest()
+
+        
+        # Toetssingsmogelijkheden(MonstersBoToVa=Path_BoToVa,
+        #                         MonsPFAS=Path_PFAS_Toepassing,
+        #                         PathSave=self.PathToetsingenEntry.get(),
+        #                         ProjectNummer=self.Project_Number.get()).Mogelijkheden()
+        # self.MessageBoxOverschriding()
         window.destroy()
         
-    def MessageBoxOverschriding(self):
-        List =Conserveringsopmerkingen(self.PathCertificatePdfEntry.get()).Overschrijding()
-        if len(List)>0:
-            message = "Let op! Er zijn monsters waar de conververingstermijnen overschreden zijn in de certificaten: {}".format(", ".join(List))
-            # Display the messagebox
-            messagebox.showwarning("Warning", message)
+    # def MessageBoxOverschriding(self):
+    #     List =Conserveringsopmerkingen(self.PathCertificatePdfEntry.get()).Overschrijding()
+    #     if len(List)>0:
+    #         message = "Let op! Er zijn monsters waar de conververingstermijnen overschreden zijn in de certificaten: {}".format(", ".join(List))
+    #         # Display the  messagebox
+    #         messagebox.showwarning("Warning", message)
 
-        else: 
-            #Display a message if the list is empty
-            messagebox.showinfo("Overschrijding conserveringstermijnen","In geen monster zijn de conververingstermijnen overschreden!")
+    #     else: 
+    #         #Display a message if the list is empty
+    #         messagebox.showinfo("Overschrijding conserveringstermijnen","In geen monster zijn de conververingstermijnen overschreden!")
             
         
 # Create the entire GUI program
