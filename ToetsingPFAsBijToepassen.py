@@ -2,8 +2,6 @@
 import os
 import pandas as pd 
 
-# PFAS = r"P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL\22218V1_Output_PFAS.xlsx"
-# PS= r'P:\2022\22196 Egaliseren Theodorushaven Bergen op Zoom\V1\07 Laboratorium\3 Toetsingen\Theodorushaven\EXCEL'
 
 class PFASToepassing():
     def __init__(self,PFASPath,PathSave,ProjectNummer):
@@ -74,8 +72,8 @@ class PFASToepassing():
         return Path_Save
 
 #In[]
-
-# PFASToepassing(PFASPath=PFAS,PathSave=PS,ProjectNummer="22218V1").Toepassing()
-
+# PFAS = r"C:\Python\MR_APP\SGS\23209V1\TOETSINGEN\23121V1_Output_PFAS.xlsx"
+# PS= r"C:\Python\MR_APP\SGS\23209V1\TOETSINGEN"
+# X =PFASToepassing(PFASPath=PFAS,PathSave=PS,ProjectNummer="22218V1").Toepassing()
 
 #In[]:
