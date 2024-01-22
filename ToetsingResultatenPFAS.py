@@ -180,8 +180,8 @@ class PFAS:
 
 #In[]: 
 
-PS =r"C:\Python\MR_APP\SGS\19135V1\TOETSINGEN"
-PC = r"C:\Python\MR_APP\SGS\19135V1\CERTIFICAAT"
-Test = PFAS(PathSave=PS,Path_Certificaten=PC,ProjectNummer="23121V1")
-Test.ResultatenPFAS()
+# PS =r"C:\Python\MR_APP\SGS\19135V1\TOETSINGEN"
+# PC = r"C:\Python\MR_APP\SGS\19135V1\CERTIFICAAT"
+# Test = PFAS(PathSave=PS,Path_Certificaten=PC,ProjectNummer="23121V1")
+# Test.ResultatenPFAS()
 #In[]

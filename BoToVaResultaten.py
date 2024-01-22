@@ -39,7 +39,8 @@ class Botova:
 
             '''
             Since PFAs does not have a monter conclusie I need to filter
-            the results so I get None for PFAS
+            the results so I get None for PFAS. This is not actually necesary
+            because None is expresed as an empty cell once it's saved as an Excel file. 
             
             '''
             for x in range(len(UL)):
